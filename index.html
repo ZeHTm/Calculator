@@ -3,56 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Калькулятор</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="conteiner">
-	<div class="calck">
-		<div class="calck__inputBlock">
-			<div class="calck__resalt" id='outafter'></div>
-			<input type="text" disabled class="calck__input" id='out'></input>
-		</div>
-		<div class="calck__block">
-			<div class="calk__string">
-				<button class="calck__number calck__log calck__number-z" value="(">(</button>
-				<button class="calck__number calck__log calck__number-z" value=")">)</button>
-				<button onclick="delet()" class="calck__number calck__number-z" value="C">C</button>
-				<button onclick="erase()" class="calck__number calck__number-z" value="CE"><b>&#8656;</b></button>
+   <div class="calck">
+      <div class="calck__inputBlock">
+			<img onclick="historyList()" class="calck__history" src="assets/img/history.svg" alt="История">
+			<div class="calck__HistoryList" id="calckList">
+				<button onclick="clearHistory()" class="calck__historyClear"><img src="assets/img/recycle.svg"><p>Clear</p></button>
+				<p id="calckHistList"></p>
 			</div>
-			<div class="calk__string">
-				<button class="calck__number calck__log" value="7">7</button>
-				<button class="calck__number calck__log" value="8">8</button>
-				<button class="calck__number calck__log" value="9">9</button>
-				<button class="calck__number calck__log calck__number-z" value="/"><b>÷</b></button>
-			</div>
-			<div class="calk__string">
-				<button class="calck__number calck__log" value="4">4</button>
-				<button class="calck__number calck__log" value="5">5</button>
-				<button class="calck__number calck__log" value="6">6</button>
-				<button class="calck__number calck__log calck__number-z" value="*"><b>×</b></button>
-			</div>
-			<div class="calk__string">
-				<button class="calck__number calck__log" value="1">1</button>
-				<button class="calck__number calck__log" value="2">2</button>
-				<button class="calck__number calck__log" value="3">3</button>
-				<button class="calck__number calck__log calck__number-z" value="-"><b>-</b></button>
-			</div>
-			<div class="calk__string">
-				<button class="calck__number calck__log calck__number-z" value="."><b>.</b></button>
-				<button class="calck__number calck__log" value="0">0</button>
-				<button onclick="equal()" class="calck__number calck__number-n" value="="><b>=</b></button>
-				<button class="calck__number calck__log calck__number-z" value="+"><b>+</b></button>
-			</div>
-		</div>
-	</div>
+         <div class="calck__resalt" id='outafter'></div>
+         <input type="text" disabled class="calck__input" id='out'></input>
+      </div>
+      <div class="calck__block">
+         <div class="calk__string">
+            <button class="calck__number calck__log calck__number-z" value="(">(</button>
+            <button class="calck__number calck__log calck__number-z" value=")">)</button>
+            <button onclick="delet()" class="calck__number calck__number-z" value="C">C</button>
+            <button onclick="erase()" class="calck__number calck__number-z" value="CE"><b>&#8656;</b></button>
+         </div>
+         <div class="calk__string">
+            <button class="calck__number calck__log" value="7">7</button>
+            <button class="calck__number calck__log" value="8">8</button>
+            <button class="calck__number calck__log" value="9">9</button>
+            <button class="calck__number calck__log calck__number-z" value="/"><b>÷</b></button>
+         </div>
+         <div class="calk__string">
+            <button class="calck__number calck__log" value="4">4</button>
+            <button class="calck__number calck__log" value="5">5</button>
+            <button class="calck__number calck__log" value="6">6</button>
+            <button class="calck__number calck__log calck__number-z" value="*"><b>×</b></button>
+         </div>
+         <div class="calk__string">
+            <button class="calck__number calck__log" value="1">1</button>
+            <button class="calck__number calck__log" value="2">2</button>
+            <button class="calck__number calck__log" value="3">3</button>
+            <button class="calck__number calck__log calck__number-z" value="-"><b>-</b></button>
+         </div>
+         <div class="calk__string">
+            <button class="calck__number calck__log calck__number-z" value="."><b>.</b></button>
+            <button class="calck__number calck__log" value="0">0</button>
+            <button onclick="equal()" class="calck__number calck__number-n" value="="><b>=</b></button>
+            <button class="calck__number calck__log calck__number-z" value="+"><b>+</b></button>
+         </div>
+      </div>
+   </div>
 </div>
-
-
-
-
-
-
 <script src="assets/js/script.js"></script>
 </body>
 </html>

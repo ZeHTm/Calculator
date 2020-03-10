@@ -15,7 +15,6 @@ function callElevator() {
 	console.log(numArr)
 }
 
-
 function delet () {
 	outHtml.value = '';
 	numArr = [];
@@ -31,56 +30,28 @@ function erase () {
 }
 
 function equal () {
+	let historyList = document.getElementById("calckHistList");
 	let result;
 	if (numArr=='undefined' || numArr==null || numArr=="") {
 		outHtml.value = '';
 	} else {
 		let string = Math.abs = numArr;
 		let number = string.join('');
-
-
-
 		result = eval(number);
 		outHtml.value = result;
 		outAfter.innerHTML = number + " = " + result;
-
+		historyList.innerHTML += "1) " + number + " = " + result + "<br>";
 		numArr = [];
 		numArr.push(result);
 	}
 }
 
+function historyList () {
+	var elem = document.getElementById("calckList");
+	elem.classList.toggle("calckHistoryList");
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//For DIV
-//function callElevator() {
-//	i = this.value;
-//	outHtml.innerHTML += i;
-//}
-
-//function delet () {
-//	outHtml.innerHTML = '';
-//}
-
-//function erase () {
-//	var i = outHtml.innerHTML;
-//	i = i.slice (0, -1);
-//	outHtml.innerHTML = i;
-//}
-
-//function equal () {
-//	outHtml.innerHTML = ' ';
-//}
+function clearHistory() {
+	let historyList = document.getElementById("calckHistList");
+	historyList.innerHTML = "";
+}

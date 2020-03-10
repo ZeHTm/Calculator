@@ -1,94 +1,146 @@
 * {
-	box-sizing: border-box;
+   box-sizing: border-box;
 }
-.conteiner {
-	display: block;
-	margin: 0 auto;
-}
-.calck {
-	background-color: #f8fafd;
-	display: block;
-	margin: 100px auto;
-	border: 1px solid #dfe1e5;
-	border-radius: 10px;
-	width: 320px;
-	transition: all ease .2s;
-}
-.calck:hover {
-	border: 1px solid #c6c8cc;
-	box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.6);
-}
-.calck__inputBlock {
-	background-color: #ebebe4;
-	width: 304px;
-	height: 94px;
-	margin: 10px 8px;
-	border-radius: 5px;
-	border: 1px solid #dfe1e5;
-}
-.calck__resalt {
-	font-family: Arial;
-	width: 302px;
-	padding: 10px 15px 0;
-	font-size: 16px;
+p {
 	margin: 0;
 }
-
-.calck__input {
-	padding: 15px;
-	font-size: 30px;
-	width: 300px;
-	margin: 0 1px;
-	border: none;
+.conteiner {
+   display: block;
+   margin: 0 auto;
 }
-.calck__input:focus {
+.calck {
+	background: url('../img/bg.png');
+   display: block;
+   margin: 25px auto;
+   border: 1px solid #dfe1e5;
+   border-radius: 10px;
+   width: 320px;
+   transition: all ease .2s;
+}
+.calck:hover {
+   border: 1px solid #c6c8cc;
+   box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.6);
+}
+.calck__inputBlock {
+	position: relative;
+   background-color: #ebebe4;
+   width: 304px;
+   height: 94px;
+   margin: 10px 8px;
+   border-radius: 5px;
+   border: 1px solid #dfe1e5;
+}
+.calck__history {
+	position: absolute;
+	right: 0%;
+	margin: 10px;
+	height: 25px;
+	width: 25px;
+	opacity: 0.7;
+	transition: opacity .2s linear;
+}
+.calck__history:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+.calck__HistoryList {
+	display: none;
+	position: absolute;
+	background: rgb(234, 243, 255);
+	border: 1px solid #c6c8cc;
+   box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.6);
+	width: 260px;
+	min-height: 160px;
+	z-index: 1000;
+	padding: 15px;
+	font-size: 15px;
+	line-height: 2;
+	font-family: Arial;
+}
+.calckHistoryList {
+	display: block;
+}
+.calck__historyClear {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto 15px;
+	padding: 0;
+	width: 120px;
+	height: 35px;
+	font-size: 20px;
+	text-align: center;
+	border: none;
+	border-radius: 5px;
+	background-color: #fff;
+	outline: none;
+	cursor: pointer;
+}
+.calck__historyClear p {
+	margin: 7px;
+}
+.calck__historyClear img {
+	width: 25px;
+	height: 25px;
+	margin: 4px 10px 0 0;
+}
+.calck__resalt {
+   font-family: Arial;
+	width: 302px;
+	height: 28px;
+   padding: 10px 15px 0;
+   font-size: 16px;
+   margin: 0;
+}
+.calck__input {
+   padding: 15px;
+   font-size: 30px;
+   width: 300px;
+   margin: 0 1px;
+	border: none;
 	outline: none;
 }
 .calck__inputBlock:hover {
-	border: 1px solid #c6c8cc;
-	box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.6);
+   border: 1px solid #c6c8cc;
+   box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.6);
 }
 .calck__block {
-	display: block;
+   display: block;
 }
 .calk__string {
-	display: flex;
-	margin: 4px;
+   display: flex;
+   margin: 4px;
 }
 .calck__number {
-	display: block;
-	height: 40px;
-	width: 70px;
-	margin: 4px;
-	padding: 0;
-	font-size: 15px;
-	border-radius: 5px;
-	background-color: #eeeeee;
-	border: none;
-	transition: all ease .2s;
+   display: block;
+   height: 40px;
+   width: 70px;
+   margin: 4px;
+   padding: 0;
+   font-size: 15px;
+   border-radius: 5px;
+   background-color: #eeeeee;
+   border: none;
+   transition: all ease .2s;
 }
 .calck__number:hover {
-	background-color: #d5dae2;
-	cursor: pointer;
-	box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.6);
+   background-color: #d5dae2;
+   cursor: pointer;
+   box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.6);
 }
 .calck__number-z {
-	background-color: #d5dae2;
+   background-color: #d5dae2;
 }
-
 .calck__number-z:hover {
-	background-color: #91b0e2;
+   background-color: #91b0e2;
 }
-
 .calck__number-n {
-	background-color: #c0d1ee;
+   background-color: #c0d1ee;
 }
-
 .calck__number-n:hover {
-	background-color: #91b0e2;
+   background-color: #91b0e2;
 }
 .calck__number:focus {
-	outline: 0;
-	background-color: #fcad96;
-	transition: background-color .2s linear;
+   outline: 0;
+   background-color: #fcad96;
+   transition: background-color .2s linear;
 }
