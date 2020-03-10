@@ -3,6 +3,26 @@ let outAfter = document.getElementById('outafter');
 let outHtml = document.getElementById('out');
 let numArr = [];
 
+document.onkeypress = function (event) {
+	if (event.keyCode>39 && event.keyCode<58) {
+		console.log(event.key)
+		numArr.push(event.key);
+		outHtml.value += event.key;
+	} else if (event.keyCode == 99) {
+		delet ();
+	} else if (event.keyCode == 61 || event.keyCode == 13) {
+		equal ();
+	} else {
+		return false;
+	}
+}
+document.addEventListener('keydown', function(event) {
+	const key = event.key; // const {key} = event; ES6+
+	if (key === "Backspace") {
+		erase ();
+	}
+});
+
 for (let i=0; i<masNumbr.length; i++) {
 	masNumbr[i].onclick = callElevator;
 }
@@ -48,7 +68,7 @@ function equal () {
 
 function historyList () {
 	var elem = document.getElementById("calckList");
-	elem.classList.toggle("calckHistoryList");
+	elem.classList.toggle("calckHistoryListShow");
 }
 
 function clearHistory() {
