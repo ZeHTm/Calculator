@@ -32,7 +32,6 @@ function callElevator() {
 	i = this.value;
 	outHtml.value += i;
 	numArr.push(i);
-	console.log(numArr)
 }
 
 function delet () {
@@ -49,6 +48,9 @@ function erase () {
 	console.log(numArr)
 }
 
+let historMassiv = [];
+let numString = 0;
+
 function equal () {
 	let historyList = document.getElementById("calckHistList");
 	let result;
@@ -60,7 +62,11 @@ function equal () {
 		result = eval(number);
 		outHtml.value = result;
 		outAfter.innerHTML = number + " = " + result;
-		historyList.innerHTML += "1) " + number + " = " + result + "<br>";
+		historMassiv.push(numString)
+		for (let numString = 0; numString < historMassiv.length; numString++) {
+		}
+		numString++;
+		historyList.innerHTML += numString + ") " + number + " = " + result + "<br>";
 		numArr = [];
 		numArr.push(result);
 	}
@@ -74,4 +80,6 @@ function historyList () {
 function clearHistory() {
 	let historyList = document.getElementById("calckHistList");
 	historyList.innerHTML = "";
+	historMassiv = [];
+	numString = 0;
 }
