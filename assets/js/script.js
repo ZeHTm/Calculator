@@ -2,6 +2,8 @@ let masNumbr = document.getElementsByClassName('calck__log');
 let outAfter = document.getElementById('outafter');
 let outHtml = document.getElementById('out');
 let numArr = [];
+let historMassiv = [];
+let numString = 0;
 
 document.onkeypress = function (event) {
 	if (event.keyCode>39 && event.keyCode<58) {
@@ -12,24 +14,19 @@ document.onkeypress = function (event) {
 		delet ();
 	} else if (event.keyCode == 61 || event.keyCode == 13) {
 		equal ();
-	} else {
-		return false;
 	}
 }
-document.addEventListener('keydown', function(event) {
-	const key = event.key; // const {key} = event; ES6+
-	if (key === "Backspace") {
-		erase ();
-	}
-});
+document.onkeydown = function (event) {
+	if (event.keyCode == 8) erase ();
+}
 
 for (let i=0; i<masNumbr.length; i++) {
-	masNumbr[i].onclick = callElevator;
+	masNumbr[i].onclick = callClick;
 }
 
 //For INPUT
-function callElevator() {
-	i = this.value;
+function callClick() {
+	let i = this.value;
 	outHtml.value += i;
 	numArr.push(i);
 }
@@ -47,9 +44,6 @@ function erase () {
 	numArr.pop();
 	console.log(numArr)
 }
-
-let historMassiv = [];
-let numString = 0;
 
 function equal () {
 	let historyList = document.getElementById("calckHistList");
@@ -73,8 +67,13 @@ function equal () {
 }
 
 function historyList () {
-	var elem = document.getElementById("calckList");
-	elem.classList.toggle("calckHistoryListShow");
+	let elem = document.getElementById("calckList");
+	let i = elem.style.transform;
+if (i == 'rotateX(90deg)') {
+		elem.style.transform = 'rotateX(0deg)';
+	} else {
+		elem.style.transform = 'rotateX(90deg)';
+	}
 }
 
 function clearHistory() {

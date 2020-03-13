@@ -44,7 +44,6 @@ p {
 	opacity: 1;
 }
 .calck__HistoryList {
-	display: none;
 	position: absolute;
 	background: rgb(234, 243, 255);
 	border: 1px solid #c6c8cc;
@@ -56,15 +55,7 @@ p {
 	font-size: 15px;
 	line-height: 2;
 	font-family: Arial;
-	transform: rotateX(90deg);
-	transition: transform .2s linear;
-}
-.calckHistoryListShow {
-	display: block;
-	transform: rotateX(0deg);
-}
-.calckHistoryList {
-	display: block;
+	transition: all ease .2s;
 }
 .calck__historyClear {
 	display: flex;
