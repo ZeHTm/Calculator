@@ -7,9 +7,8 @@ let numString = 0;
 
 document.onkeypress = function (event) {
 	if (event.keyCode>39 && event.keyCode<58) {
-		console.log(event.key)
 		numArr.push(event.key);
-		outHtml.value += event.key;
+		outHtml.innerHTML += event.key;
 	} else if (event.keyCode == 99) {
 		delet ();
 	} else if (event.keyCode == 61 || event.keyCode == 13) {
@@ -24,45 +23,101 @@ for (let i=0; i<masNumbr.length; i++) {
 	masNumbr[i].onclick = callClick;
 }
 
-//For INPUT
+//For DIV
 function callClick() {
+	function returnLastItem(arr) {
+		return arr[arr.length - 1];
+	 }
 	let i = this.value;
-	outHtml.value += i;
-	numArr.push(i);
+	let r = returnLastItem(numArr);
+	if (r == i && i == "/" || 
+		 r == i && i == "*" || 
+		 r == i && i == "-" || 
+		 r == i && i == "+" || 
+		 r == i && i == "." || 
+		 
+		 r == "/" && i == "/" || 
+		 r == "/" && i == "*" || 
+		 r == "/" && i == "-" || 
+		 r == "/" && i == "+" || 
+		 r == "/" && i == "." || 
+		 
+		 r == "*" && i == "/" || 
+		 r == "*" && i == "*" || 
+		 r == "*" && i == "-" || 
+		 r == "*" && i == "+" || 
+		 r == "*" && i == "." || 
+
+		 r == "-" && i == "/" || 
+		 r == "-" && i == "*" || 
+		 r == "-" && i == "-" || 
+		 r == "-" && i == "+" || 
+		 r == "-" && i == "." || 
+
+		 r == "+" && i == "/" || 
+		 r == "+" && i == "*" || 
+		 r == "+" && i == "-" || 
+		 r == "+" && i == "+" || 
+		 r == "+" && i == "." || 
+
+		 r == "." && i == "/" || 
+		 r == "." && i == "*" || 
+		 r == "." && i == "-" || 
+		 r == "." && i == "+" || 
+		 r == "." && i == "."
+		 ) {
+			 return false;
+	} else {
+		outHtml.innerHTML += i;
+		numArr.push(i);
+	}
 }
 
 function delet () {
-	outHtml.value = '';
+	outHtml.innerHTML = '';
 	numArr = [];
 	outAfter.innerHTML = '';
 }
 
 function erase () {
-	let i = outHtml.value;
+	let i = outHtml.innerHTML;
 	i = i.slice (0, -1);
-	outHtml.value = i;
+	outHtml.innerHTML = i;
 	numArr.pop();
-	console.log(numArr)
 }
 
 function equal () {
+	addMisArr();
 	let historyList = document.getElementById("calckHistList");
 	let result;
 	if (numArr=='undefined' || numArr==null || numArr=="") {
-		outHtml.value = '';
+		outHtml.innerHTML = '';
 	} else {
 		let string = Math.abs = numArr;
 		let number = string.join('');
 		result = eval(number);
-		outHtml.value = result;
+		outHtml.innerHTML = result;
 		outAfter.innerHTML = number + " = " + result;
 		historMassiv.push(numString)
 		for (let numString = 0; numString < historMassiv.length; numString++) {
 		}
 		numString++;
-		historyList.innerHTML += numString + ") " + number + " = " + result + "<br>";
+		historyList.innerHTML += numString + ") " + number + " = " + result + "<br>" + "<hr>" + "<br>";
 		numArr = [];
 		numArr.push(result);
+	}
+}
+
+function addMisArr() {
+	let openArr = 0;
+	let closeArr = 0;
+	for (let i = 0; i<numArr.length; i++) {
+		if (numArr[i] == "(") openArr++;
+		if (numArr[i] == ")") closeArr++;
+	}
+	for (closeArr; openArr>closeArr; closeArr++) {
+		outHtml.value += ")";
+		numArr.push(")");
 	}
 }
 

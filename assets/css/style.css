@@ -1,7 +1,9 @@
 * {
    box-sizing: border-box;
 }
+
 p {
+	padding: 0;
 	margin: 0;
 }
 .conteiner {
@@ -25,7 +27,7 @@ p {
 	position: relative;
    background-color: #ebebe4;
    width: 304px;
-   height: 94px;
+   min-height: 94px;
    margin: 10px 8px;
    border-radius: 5px;
    border: 1px solid #dfe1e5;
@@ -47,20 +49,20 @@ p {
 	position: absolute;
 	background: rgb(234, 243, 255);
 	border: 1px solid #c6c8cc;
-   box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.6);
+	box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.6);
 	width: 260px;
 	min-height: 160px;
 	z-index: 1000;
-	padding: 15px;
+	padding: 15px 15px 0;
 	font-size: 15px;
-	line-height: 2;
+	line-height: 1.4;
 	font-family: Arial;
 	transition: all ease .2s;
 }
 .calck__historyClear {
 	display: flex;
 	justify-content: center;
-	margin: 0 auto 15px;
+	margin: 0 auto 25px;
 	padding: 0;
 	width: 120px;
 	height: 35px;
@@ -89,12 +91,15 @@ p {
    margin: 0;
 }
 .calck__input {
+	background: #ebebe4;
    padding: 15px;
    font-size: 30px;
    width: 300px;
    margin: 0 1px;
 	border: none;
 	outline: none;
+	font-family: Arial;
+	word-wrap: break-word;
 }
 .calck__inputBlock:hover {
    border: 1px solid #c6c8cc;
