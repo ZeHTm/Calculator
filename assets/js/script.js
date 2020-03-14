@@ -23,11 +23,11 @@ for (let i=0; i<masNumbr.length; i++) {
 	masNumbr[i].onclick = callClick;
 }
 
+function returnLastItem(arr) {
+	return arr[arr.length - 1];
+ }
 //For DIV
 function callClick() {
-	function returnLastItem(arr) {
-		return arr[arr.length - 1];
-	 }
 	let i = this.value;
 	let r = returnLastItem(numArr);
 	if (r == i && i == "/" || 
@@ -64,10 +64,20 @@ function callClick() {
 		 r == "." && i == "*" || 
 		 r == "." && i == "-" || 
 		 r == "." && i == "+" || 
-		 r == "." && i == "."
+		 r == "." && i == "." || 
+
+		 r == ")" && i == ")" || 
+		 r == ")" && i == "(" || 
+		 r == "(" && i == ")" || 
+		 r == "(" && i == "(" 
 		 ) {
 			 return false;
 	} else {
+		if (i == ")") {
+			if (numArr[0] == undefined) {
+				return false;
+			}
+		}
 		outHtml.innerHTML += i;
 		numArr.push(i);
 	}
@@ -87,6 +97,7 @@ function erase () {
 }
 
 function equal () {
+	checkLastArr();
 	addMisArr();
 	let historyList = document.getElementById("calckHistList");
 	let result;
@@ -119,6 +130,16 @@ function addMisArr() {
 		outHtml.value += ")";
 		numArr.push(")");
 	}
+}
+function checkLastArr() {
+	let r = returnLastItem(numArr);
+	if (r == "(" || 
+		 r == ")" || 
+		 r == "/" || 
+		 r == "*" || 
+		 r == "-" || 
+		 r == "+" || 
+		 r == ".") erase ();
 }
 
 function historyList () {
