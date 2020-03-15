@@ -1,147 +1,128 @@
-let masNumbr = document.getElementsByClassName('calck__log');
-let outAfter = document.getElementById('outafter');
-let outHtml = document.getElementById('out');
-let numArr = [];
-let historMassiv = [];
-let numString = 0;
+let arrNumbrButtons = document.getElementsByClassName('calck__log');
+let outPastСalculation = document.getElementById('outafter');
+let outInDisplayCalc = document.getElementById('out');
+let arrValueCalculation = [];
+let listHistoryMasiv = [];
+let calcNumListHistory = 0;
 
 document.onkeypress = function (event) {
 	if (event.keyCode>39 && event.keyCode<58) {
-		numArr.push(event.key);
-		outHtml.innerHTML += event.key;
+		arrValueCalculation.push(event.key);
+		outInDisplayCalc.innerHTML += event.key;
 	} else if (event.keyCode == 99) {
-		delet ();
+		deleteAll ();
 	} else if (event.keyCode == 61 || event.keyCode == 13) {
-		equal ();
+		equationSolution ();
 	}
 }
 document.onkeydown = function (event) {
-	if (event.keyCode == 8) erase ();
+	if (event.keyCode == 8) backspace();
 }
 
-for (let i=0; i<masNumbr.length; i++) {
-	masNumbr[i].onclick = callClick;
+for (let i=0; i<arrNumbrButtons.length; i++) {
+	arrNumbrButtons[i].onclick = callClick;
 }
 
 function returnLastItem(arr) {
 	return arr[arr.length - 1];
- }
+}
+
 //For DIV
 function callClick() {
-	let i = this.value;
-	let r = returnLastItem(numArr);
-	if(r == i && i == "/" ||
-		r == i && i == "*" ||
-		r == i && i == "-" ||
-		r == i && i == "+" ||
-		r == i && i == "." ||
-		
-		r == "/" && i == "/" ||
-		r == "/" && i == "*" ||
-		r == "/" && i == "-" ||
-		r == "/" && i == "+" ||
-		r == "/" && i == "." ||
-		
-		r == "*" && i == "/" ||
-		r == "*" && i == "*" ||
-		r == "*" && i == "-" ||
-		r == "*" && i == "+" ||
-		r == "*" && i == "." ||
+	let valueClick = this.value;
+	let retLastItem = returnLastItem(arrValueCalculation);
+	let arrSing = ["/", "*", "-", "+", "."];
+	for (let a = 0; a<arrSing.length; a++) {
+		for (let b = 0; b<arrSing.length; b++) {
+			if (retLastItem == arrSing[a] && valueClick == arrSing[b]) backspace();
+		}
+	}
 
-		r == "-" && i == "/" ||
-		r == "-" && i == "*" ||
-		r == "-" && i == "-" ||
-		r == "-" && i == "+" ||
-		r == "-" && i == "." ||
-
-		r == "+" && i == "/" ||
-		r == "+" && i == "*" ||
-		r == "+" && i == "-" ||
-		r == "+" && i == "+" ||
-		r == "+" && i == "." ||
-
-		r == "." && i == "/" ||
-		r == "." && i == "*" ||
-		r == "." && i == "-" ||
-		r == "." && i == "+" ||
-		r == "." && i == "." ||
-
-		r == ")" && i == ")" ||
-		r == ")" && i == "(" ||
-		r == "(" && i == ")" ||
-		r == "(" && i == "(" ) {
+	if(retLastItem == ")" && valueClick == "(" ||
+		retLastItem == "(" && valueClick == ")" ) {
 			return false;
 	} else {
-		if (i == ")") {
-			if (numArr[0] == undefined) {
+		if (valueClick == ")" || valueClick == "/" || valueClick == "*" || valueClick == "+") { //blocks water elements at the beginning of calculation
+			if (arrValueCalculation[0] == undefined) {
 				return false;
 			}
 		}
-		outHtml.innerHTML += i;
-		numArr.push(i);
+	outInDisplayCalc.innerHTML += valueClick;
+	arrValueCalculation.push(valueClick);
+	checkCloserArrow();
 	}
 }
 
-function delet () {
-	outHtml.innerHTML = '';
-	numArr = [];
-	outAfter.innerHTML = '';
+function deleteAll () {
+	outInDisplayCalc.innerHTML = '';
+	arrValueCalculation = [];
+	outPastСalculation.innerHTML = '';
 }
 
-function erase () {
-	let i = outHtml.innerHTML;
+function backspace () {
+	let i = outInDisplayCalc.innerHTML;
 	i = i.slice (0, -1);
-	outHtml.innerHTML = i;
-	numArr.pop();
+	outInDisplayCalc.innerHTML = i;
+	arrValueCalculation.pop();
 }
 
-function equal () {
-	checkLastArr();
-	addMisArr();
-	let historyList = document.getElementById("calckHistList");
+function equationSolution () {
+	checkLastItem();
+	addMissingArrow();
+	let listHistory = document.getElementById("calckHistoryDisplay");
 	let result;
-	if (numArr=='undefined' || numArr==null || numArr=="") {
-		outHtml.innerHTML = '';
+	if (arrValueCalculation=='undefined' || arrValueCalculation==null || arrValueCalculation=="") {
+		outInDisplayCalc.innerHTML = '';
 	} else {
-		let string = Math.abs = numArr;
+		let string = Math.abs = arrValueCalculation;
 		let number = string.join('');
 		result = eval(number);
-		outHtml.innerHTML = result;
-		outAfter.innerHTML = number + " = " + result;
-		historMassiv.push(numString)
-		for (let numString = 0; numString < historMassiv.length; numString++) {
+		outInDisplayCalc.innerHTML = result;
+		outPastСalculation.innerHTML = number + " = " + result;
+		listHistoryMasiv.push(calcNumListHistory)
+		for (let calcNumListHistory = 0; calcNumListHistory < listHistoryMasiv.length; calcNumListHistory++) {
 		}
-		numString++;
-		historyList.innerHTML += numString + ") " + number + " = " + result + "<br>" + "<hr>" + "<br>";
-		numArr = [];
-		numArr.push(result);
+		calcNumListHistory++;
+		listHistory.innerHTML += calcNumListHistory + ") " + number + " = " + result + "<br>" + "<hr>" + "<br>";
+		arrValueCalculation = [];
+		arrValueCalculation.push(result);
 	}
 }
 
-function addMisArr() {
+function checkCloserArrow() {
 	let openArr = 0;
 	let closeArr = 0;
-	for (let i = 0; i<numArr.length; i++) {
-		if (numArr[i] == "(") openArr++;
-		if (numArr[i] == ")") closeArr++;
+	for (let i = 0; i<arrValueCalculation.length; i++) {
+		if (arrValueCalculation[i] == "(") openArr++;
+		if (arrValueCalculation[i] == ")") closeArr++;
 	}
-	for (closeArr; openArr>closeArr; closeArr++) {
-		outHtml.value += ")";
-		numArr.push(")");
+	if (openArr<closeArr) {
+		backspace();
 	}
-}
-function checkLastArr() {
-	let r = returnLastItem(numArr);
-	if (r == "(" || 
-		 r == ")" || 
-		 r == "/" || 
-		 r == "*" || 
-		 r == "-" || 
-		 r == "+" || 
-		 r == ".") erase ();
 }
 
-function historyList () {
+function addMissingArrow() {
+	let openArr = 0;
+	let closeArr = 0;
+	for (let i = 0; i<arrValueCalculation.length; i++) {
+		if (arrValueCalculation[i] == "(") openArr++;
+		if (arrValueCalculation[i] == ")") closeArr++;
+	}
+	for (closeArr; openArr>closeArr; closeArr++) {
+		outInDisplayCalc.value += ")";
+		arrValueCalculation.push(")");
+	}
+}
+
+function checkLastItem() {
+	let lastItem = returnLastItem(arrValueCalculation);
+	let arrSing = ["/", "*", "-", "+", ".", "("];
+	for (let i = 0; i<arrSing.length; i++) {
+		if (lastItem == arrSing[i]) backspace();
+		}
+}
+
+function listHistory () {
 	let elem = document.getElementById("calckList");
 	let i = elem.style.transform;
 if (i == 'rotateX(90deg)') {
@@ -152,8 +133,8 @@ if (i == 'rotateX(90deg)') {
 }
 
 function clearHistory() {
-	let historyList = document.getElementById("calckHistList");
-	historyList.innerHTML = "";
-	historMassiv = [];
-	numString = 0;
+	let display = document.getElementById("calckDisplay");
+	display.innerHTML = "";
+	listHistoryMasiv = [];
+	calcNumListHistory = 0;
 }

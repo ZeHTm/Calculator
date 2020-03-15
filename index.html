@@ -10,10 +10,10 @@
 <div class="conteiner">
    <div class="calck">
       <div class="calck__inputBlock">
-			<img onclick="historyList()" class="calck__history" src="assets/img/history.svg" alt="История">
+			<img onclick="listHistory()" class="calck__history" src="assets/img/history.svg" alt="История">
 			<div class="calck__HistoryList " id="calckList" style="transform: rotateX(90deg);">
 				<button onclick="clearHistory()" class="calck__historyClear"><img src="assets/img/recycle.svg"><p>Clear</p></button>
-				<p id="calckHistList"></p>
+				<p id="calckHistoryDisplay"></p>
 			</div>
          <div class="calck__resalt" id='outafter'></div>
          <div class="calck__input" id='out'></div>
@@ -22,8 +22,8 @@
          <div class="calk__string">
             <button class="calck__number calck__log calck__number-z" value="(">(</button>
             <button class="calck__number calck__log calck__number-z" value=")">)</button>
-            <button onclick="delet()" class="calck__number calck__number-z" value="C">C</button>
-            <button onclick="erase()" class="calck__number calck__number-z" value="CE"><b>&#8656;</b></button>
+            <button onclick="deleteAll()" class="calck__number calck__number-z" value="C">C</button>
+            <button onclick="backspace()" class="calck__number calck__number-z" value="CE"><b>&#8656;</b></button>
          </div>
          <div class="calk__string">
             <button class="calck__number calck__log" value="7">7</button>
@@ -46,7 +46,8 @@
          <div class="calk__string">
             <button class="calck__number calck__log calck__number-z" value="."><b>.</b></button>
             <button class="calck__number calck__log" value="0">0</button>
-            <button onclick="equal()" class="calck__number calck__number-n" value="="><b>=</b></button>
+            <button onclick="
+				equationSolution()" class="calck__number calck__number-n" value="="><b>=</b></button>
             <button class="calck__number calck__log calck__number-z" value="+"><b>+</b></button>
          </div>
       </div>
