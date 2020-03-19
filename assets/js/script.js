@@ -1,14 +1,17 @@
 let arrNumbrButtons = document.getElementsByClassName('calck__log');
 let outPastСalculation = document.getElementById('outafter');
 let outInDisplayCalc = document.getElementById('out');
+let listHistory = document.getElementById("calckHistoryDisplay");
 let arrValueCalculation = [];
 let listHistoryMasiv = [];
 let calcNumListHistory = 0;
+let valueClick;
 
 document.onkeypress = function (event) {
 	if (event.keyCode>39 && event.keyCode<58) {
-		arrValueCalculation.push(event.key);
-		outInDisplayCalc.innerHTML += event.key;
+		//arrValueCalculation.push(event.key);
+		//outInDisplayCalc.innerHTML += event.key;
+		callClickKey();
 	} else if (event.keyCode == 99) {
 		deleteAll ();
 	} else if (event.keyCode == 61 || event.keyCode == 13) {
@@ -27,30 +30,32 @@ function returnLastItem(arr) {
 	return arr[arr.length - 1];
 }
 
-//For DIV
 function callClick() {
-	let valueClick = this.value;
 	let retLastItem = returnLastItem(arrValueCalculation);
-	let arrSing = ["/", "*", "-", "+", "."];
-	for (let a = 0; a<arrSing.length; a++) {
-		for (let b = 0; b<arrSing.length; b++) {
-			if (retLastItem == arrSing[a] && valueClick == arrSing[b]) backspace();
-		}
+	valueClick = this.value;
+	checkDuplicationSigns();
+
+	if (valueClick == ")" || valueClick == "/" || valueClick == "*" || valueClick == "+") { //checking the first value
+		if (arrValueCalculation[0] == undefined) return false;
+	}
+	if(retLastItem == ")" && valueClick == "(" ) return false;
+
+	//check sign after "("
+	let arrSing = ["/", "*", "+", ")"]; 
+	for ( let i = 0; i<arrSing.length; i++) {
+		if(retLastItem == "(" && valueClick == arrSing[i]) return false;
 	}
 
-	if(retLastItem == ")" && valueClick == "(" ||
-		retLastItem == "(" && valueClick == ")" ) {
-			return false;
-	} else {
-		if (valueClick == ")" || valueClick == "/" || valueClick == "*" || valueClick == "+") { //blocks water elements at the beginning of calculation
-			if (arrValueCalculation[0] == undefined) {
-				return false;
-			}
-		}
+	//record of result
 	outInDisplayCalc.innerHTML += valueClick;
 	arrValueCalculation.push(valueClick);
+
+	//verification of the result
+	let numberMassiv = [".", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]; //forbids write down "("" before numbers
+	for (let i = 0; i<numberMassiv.length; i++) {
+			if (retLastItem == numberMassiv[i] && valueClick == "(") backspace();
+			}
 	checkCloserArrow();
-	}
 }
 
 function deleteAll () {
@@ -69,7 +74,6 @@ function backspace () {
 function equationSolution () {
 	checkLastItem();
 	addMissingArrow();
-	let listHistory = document.getElementById("calckHistoryDisplay");
 	let result;
 	if (arrValueCalculation=='undefined' || arrValueCalculation==null || arrValueCalculation=="") {
 		outInDisplayCalc.innerHTML = '';
@@ -80,6 +84,7 @@ function equationSolution () {
 		outInDisplayCalc.innerHTML = result;
 		outPastСalculation.innerHTML = number + " = " + result;
 		listHistoryMasiv.push(calcNumListHistory)
+		// add changes to the story list
 		for (let calcNumListHistory = 0; calcNumListHistory < listHistoryMasiv.length; calcNumListHistory++) {
 		}
 		calcNumListHistory++;
@@ -89,6 +94,19 @@ function equationSolution () {
 	}
 }
 
+function checkDuplicationSigns () {
+	let retLastItem = returnLastItem(arrValueCalculation);
+	let arrSing = ["/", "*", "-", "+", "."];
+		for (let a = 0; a<arrSing.length; a++) {
+			for (let b = 0; b<arrSing.length; b++) {
+				if (retLastItem == arrSing[a] && valueClick == arrSing[b]) backspace();
+			}
+		}
+	for (let i = 0; i<arrSing.length; i++) {
+			if (retLastItem == arrSing[i] && valueClick == ")") return false;
+		}
+}
+
 function checkCloserArrow() {
 	let openArr = 0;
 	let closeArr = 0;
@@ -96,9 +114,7 @@ function checkCloserArrow() {
 		if (arrValueCalculation[i] == "(") openArr++;
 		if (arrValueCalculation[i] == ")") closeArr++;
 	}
-	if (openArr<closeArr) {
-		backspace();
-	}
+	if (openArr<closeArr) backspace();
 }
 
 function addMissingArrow() {
@@ -115,17 +131,18 @@ function addMissingArrow() {
 }
 
 function checkLastItem() {
-	let lastItem = returnLastItem(arrValueCalculation);
-	let arrSing = ["/", "*", "-", "+", ".", "("];
-	for (let i = 0; i<arrSing.length; i++) {
-		if (lastItem == arrSing[i]) backspace();
+		let arrSing = ["/", "*", "-", "+", ".", "("];
+		for (let i = 0; i<arrValueCalculation.length; i++) {
+			for (let a = 0; a<arrSing.length; a++) {
+				let lastItem = returnLastItem(arrValueCalculation);
+			if (lastItem == arrSing[a]) backspace();
 		}
+	}
 }
 
-function listHistory () {
+function openListHistory () {
 	let elem = document.getElementById("calckList");
-	let i = elem.style.transform;
-if (i == 'rotateX(90deg)') {
+if (elem.style.transform == 'rotateX(90deg)') {
 		elem.style.transform = 'rotateX(0deg)';
 	} else {
 		elem.style.transform = 'rotateX(90deg)';
@@ -133,8 +150,56 @@ if (i == 'rotateX(90deg)') {
 }
 
 function clearHistory() {
-	let display = document.getElementById("calckDisplay");
-	display.innerHTML = "";
+	listHistory.innerHTML = "";
 	listHistoryMasiv = [];
 	calcNumListHistory = 0;
+}
+
+//BLOCK for support keyboard
+function callClickKey() {
+	let retLastItem = returnLastItem(arrValueCalculation);
+	valueClick = this.event.key;
+	checkDuplicationSigns();
+
+	if (valueClick == ")" || valueClick == "/" || valueClick == "*" || valueClick == "+") { //checking the first value
+		if (arrValueCalculation[0] == undefined) return false;
+	}
+	if(retLastItem == ")" && valueClick == "(" ) return false;
+
+	//check sign after "("
+	let arrSing = ["/", "*", "+", ")"]; 
+	for ( let i = 0; i<arrSing.length; i++) {
+		if(retLastItem == "(" && valueClick == arrSing[i]) return false;
+	}
+
+	//record of result
+	outInDisplayCalc.innerHTML += valueClick;
+	arrValueCalculation.push(valueClick);
+
+	//verification of the result
+	let numberMassiv = [".", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]; //forbids write down "("" before numbers
+	for (let i = 0; i<numberMassiv.length; i++) {
+			if (retLastItem == numberMassiv[i] && valueClick == "(") backspace();
+			}
+	checkCloserArrow();
+}
+
+function checkCloserArrow() {
+	let openArr = 0;
+	let closeArr = 0;
+	for (let i = 0; i<arrValueCalculation.length; i++) {
+		if (arrValueCalculation[i] == "(") openArr++;
+		if (arrValueCalculation[i] == ")") closeArr++;
+	}
+	if (openArr<closeArr) backspace();
+}
+
+function checkCloserArrow() {
+	let openArr = 0;
+	let closeArr = 0;
+	for (let i = 0; i<arrValueCalculation.length; i++) {
+		if (arrValueCalculation[i] == "(") openArr++;
+		if (arrValueCalculation[i] == ")") closeArr++;
+	}
+	if (openArr<closeArr) backspace();
 }
