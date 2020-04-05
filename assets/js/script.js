@@ -133,11 +133,12 @@ function addMissingArrow() {
 }
 
 function checkLastItem() {
-	let arrSing = ["/", "*", "-", "+", ".", "("];
-	for (let i = 0; i < arrValueCalculation.length; i++) {
-		for (let a = 0; a < arrSing.length; a++) {
+	let arrSign = ["/", "*", "-", "+", ".", "(", ")"];
+	let lengthArr = arrValueCalculation.length;
+	for (let i = 0; i < lengthArr; i++) {
+		for (let a = 0; a < arrSign.length; a++) {
 			let lastItem = returnLastItem(arrValueCalculation);
-			if (lastItem == arrSing[a]) backspace();
+			if (lastItem == arrSign[a]) backspace();
 		}
 	}
 }
